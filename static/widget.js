@@ -86,7 +86,7 @@ APP_SQBLOG_WIDGET.add_tweet = function(tweet) {
 
     var line = $('<hr class="featurette-divider">'
              + '<div class="featurette">'
-             + '<img class="featurette-image pull-left" src="' + tweet.user.profile_image_url + '" width="200">'
+             + '<img class="featurette-image pull-left" src="' + tweet.user.profile_image_url + '" width="100">'
              + '<h2 class="featurette-heading">' + tweet.user.screen_name + ' <span class="muted">@masakyst</span></h2>'
              + '<p class="lead">' + tweet.text + '</p>'
              + '</div>');
