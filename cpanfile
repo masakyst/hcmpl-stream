@@ -1,5 +1,6 @@
 requires 'YAML';
 requires 'Twiggy';
+requires 'Server::Starter';
 requires 'Tatsumaki';
 #requires 'DBIx::Class';
 requires 'Log::Minimal';
