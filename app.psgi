@@ -10,7 +10,6 @@ use YAML;
 my $app = Tatsumaki::Application->new([
     qr'/(\d+)'      => 'HtmlHandler',
     qr'/poll/(\d+)' => 'TweetHandler',
-    #qr'/poll/(\d+)' => 'TweetMockHandler',
 ]);
 
 $app->template_path( "template" );
