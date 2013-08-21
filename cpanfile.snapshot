@@ -911,6 +911,16 @@ DISTRIBUTIONS
       Test::More 0.66
       Test::Warn 0.21
       URI::Escape 3.28
+  Net-SSLeay-1.55
+    pathname: M/MI/MIKEM/Net-SSLeay-1.55.tar.gz
+    provides:
+      Net::SSLeay 1.55
+      Net::SSLeay::Handle 0.61
+    requirements:
+      ExtUtils::MakeMaker 6.36
+      MIME::Base64 0
+      Test::More 0.60_01
+      perl 5.005
   Package-DeprecationManager-0.13
     pathname: D/DR/DROLSKY/Package-DeprecationManager-0.13.tar.gz
     provides:
