@@ -3,7 +3,8 @@ requires 'Twiggy';
 requires 'Tatsumaki';
 #requires 'DBIx::Class';
 requires 'Log::Minimal';
-requires 'AnyEvent::Twitter::Stream';
+requires 'Net::SSLeay';
 requires 'Net::OAuth';
+requires 'AnyEvent::Twitter::Stream';
 
 
