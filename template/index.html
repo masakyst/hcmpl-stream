@@ -143,7 +143,7 @@
     ------------------------- */
 
     .featurette-divider {
-      margin: 20px 0; /* Space out the Bootstrap <hr> more */
+      margin: 5px 0; /* Space out the Bootstrap <hr> more */
     }
     .featurette {
       padding-top: 0px; /* Vertically center images part 1: add padding above and below text. */
@@ -263,10 +263,12 @@
       }
 
     }
-
+   
     #box {
-        height: 1000px;
-        overflow: scroll;
+        height: 930px;
+        /* border: medium #ff0000 dotted; */
+        /* overflow: scroll; */
+        overflow: hidden;
     }
 
     #logo {
@@ -303,31 +305,12 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing" id="container">
-        <div id="logo"></div>   
-
-      <div id="box">
-          <!-- START THE FEATURETTES -->
-
-      <hr class="featurette-divider">
-
-      <div class="featurette">
-        <img class="featurette-image pull-left" src="https://si0.twimg.com/profile_images/3692908699/35e204405d9c88a8a5c9dc16567ab8eb.jpeg" width="100">
-        <h2 class="featurette-heading">masakyst <span class="muted">@masakyst</span></h2>
-        <p class="lead">確かにPerlは旬なモジュールって結構変動あると思うし、それらの開発速度が速くて以前のRailsを感じる部分もある #perl</p>
-      </div>
-
-      </div>
-
-
-
-      <!-- /END THE FEATURETTES -->
-
+      <div id="logo"></div>   
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="#">ハッカーズチャンプルー 2013</a></p>
       </footer>
-
     </div><!-- /.container -->
 
 
@@ -349,30 +332,38 @@
     <script src="static/assets/js/bootstrap-carousel.js"></script>
     <script src="static/assets/js/bootstrap-typeahead.js"></script>
     <script>
-        var WIDGET = { VERSION: '0.01' };
+        var WIDGET = { VERSION: '0.01', view_tweets:6 };
         WIDGET.add_tweet = function(tweet) {
             console.log(tweet);
             var container = $("#container");
             var box = $("#box");
-            var line = $('<hr class="featurette-divider">'
-            + '<div class="featurette">'
+            //var line = $('<hr class="featurette-divider">'
+            var line = $('<div class="featurette">'
                 + '<img class="featurette-image pull-left" src="' + tweet.user.profile_image_url + '" width="100">'
                 + '<h2 class="featurette-heading">' + tweet.user.name + ' <span class="muted">@' + tweet.user.screen_name + '</span></h2>'
                 + '<p class="lead">' + tweet.text + '</p>'
                 + '</div>');
             line.animate({opacity:0}, 0);
             box.prepend(line);
-            //box.animate({scrollTop:0}, 1000, 'swing', function(){
-                $(".featurette:first").animate({opacity:1}, 1000);
-                //WIDGET.remove_bottom();
-                //});
+            container.prepend(line);
+            //$(".featurette:first").animate({opacity:1}, 1000);
+            $(".featurette:first").animate({opacity:1}, 1000, 'swing', function(){
+                WIDGET.remove_lasttweet();
+            });
         };
-
+        WIDGET.remove_lasttweet = function() {
+            console.log(this.view_tweets);
+            var tweets = $(".featurette");
+            var count_tweets = tweets.length;
+            if (count_tweets > this.view_tweets) {
+                for (var i = this.view_tweets; i < tweets.length; i++) {
+                    $(tweets[i]).hide('slow', function(){ $(tweets[i]).remove(); });
+                }
+            }
+        };
 
         !function ($) {
             $(function(){
-                // carousel demo
-                //$('#myCarousel').carousel()
                 $.ev.loop('/poll/' + <%= $uid %> + '?session=' + Math.random(), {
                     tweet : function(ev) {
                         if(! ev.tweet.user || ! ev.tweet.text) return;
