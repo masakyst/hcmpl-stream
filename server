@@ -1,11 +1,10 @@
 #!/bin/bash
 
-export PLACK_ENV=production
 export PATH=/home/ec2-user/perl5/perlbrew/perls/perl-5.16/bin:$PATH
 
 case $1 in
         start)
-                carton exec -- start_server --port=5000 --interval=5 --pid-file=/var/www/apps/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy >/dev/null 2>&1 &
+                carton exec -- start_server --port=5000 --interval=5 --pid-file=/var/www/apps/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &
                 ;;
         stop)
                 kill -TERM `cat /var/www/apps/hcmpl-stream/hcmplstream.pid`
