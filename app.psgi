@@ -3,7 +3,6 @@ use warnings;
 use utf8;
 use Plack::Builder;
 use Tatsumaki::Application;
-use HelloHandler;
 use HtmlHandler;
 use TweetHandler;
 use TweetMockHandler;
