@@ -3,16 +3,15 @@
 export PLACK_ENV=production
 export PATH=/home/ec2-user/perl5/perlbrew/perls/perl-5.16/bin:$PATH
 
-APP_DIR=`dirname ${0}`
 case $1 in
         start)
-                carton exec -- start_server --port=5000 --interval=5 --pid-file=/tmp/hcmplstream.pid -- plackup -Ilib -s Twiggy >/dev/null 2>&1 &
+                carton exec -- start_server --port=5000 --interval=5 --pid-file=/var/www/apps/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy >/dev/null 2>&1 &
                 ;;
         stop)
-                kill -TERM `cat /tmp/hcmplstream.pid`
+                kill -TERM `cat /var/www/apps/hcmpl-stream/hcmplstream.pid`
                 ;;
         restart)
-                kill -HUP `cat /tmp/hcmplstream.pid`
+                kill -HUP `cat /var/www/apps/hcmpl-stream/hcmplstream.pid`
                 ;;
         *)
                 echo "usage: ./server {start|stop|restart}"
