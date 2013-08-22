@@ -41,6 +41,7 @@ sub create_stream {
         },
         on_error => sub {
             my $error = join ',', @_;
+            print Dumper($error);
             $mq->publish( { type => 'message', text => $error, } );
             delete $streams{ $uid };
         },
