@@ -15,7 +15,7 @@ sub create_stream {
     my $self = shift;
     my ( $uid ) = @_;
     my $config = $self->{application}->{config};
-    # masakystpublic
+
     my $cs_key    = $config->{cs_key};
     my $cs_secret = $config->{cs_secret};
     my $ac_token  = $config->{ac_token};
@@ -31,9 +31,12 @@ sub create_stream {
         token_secret    => $ac_secret,
         method          => 'filter',
         track           => $track,
+        on_keepalive => sub {
+            warn "ping\n";
+        },  
         on_tweet => sub {
             my $tweet = shift;
-            print Dumper($tweet);
+            # print Dumper($tweet);
             $mq->publish( { type => 'tweet', tweet => $tweet, } );
         },
         on_error => sub {

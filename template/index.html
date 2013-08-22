@@ -348,29 +348,46 @@
     <script src="static/assets/js/bootstrap-collapse.js"></script>
     <script src="static/assets/js/bootstrap-carousel.js"></script>
     <script src="static/assets/js/bootstrap-typeahead.js"></script>
-    <script src="static/widget.js"></script>
     <script>
-        var tweet1 = {'screen_name':'masakyst', 'tweet':'確かにPerlは旬なモジュールって結構変動あると思うし、それらの開発速度が速くて以前のRailsを感じる部分もある #perl', 'image':'https://si0.twimg.com/profile_images/3692908699/35e204405d9c88a8a5c9dc16567ab8eb.jpeg'};
-        var tweet2 = {'screen_name':'yomitanpm', 'tweet':'hello', 'image':'https://si0.twimg.com/sticky/default_profile_images/default_profile_2_bigger.png'};
-      !function ($) {
-        $(function(){
-          // carousel demo
-          //$('#myCarousel').carousel()
-          $.ev.loop('/poll/' + <%= $uid %> + '?session=' + Math.random(), {
-              tweet : function(ev) {
-                  if(! ev.tweet.user || ! ev.tweet.text) return;
-                  console.log(ev.tweet);
-                  APP_SQBLOG_WIDGET.add_tweet(ev.tweet);
-              },
-              message : function(ev) {
-                  alert('しにました');
-              }
-          });
-        })
-      }(window.jQuery)
+        var WIDGET = { VERSION: '0.01' };
+        WIDGET.add_tweet = function(tweet) {
+            console.log(tweet);
+            var container = $("#container");
+            var box = $("#box");
+            var line = $('<hr class="featurette-divider">'
+            + '<div class="featurette">'
+                + '<img class="featurette-image pull-left" src="' + tweet.user.profile_image_url + '" width="100">'
+                + '<h2 class="featurette-heading">' + tweet.user.name + ' <span class="muted">@' + tweet.user.screen_name + '</span></h2>'
+                + '<p class="lead">' + tweet.text + '</p>'
+                + '</div>');
+            line.animate({opacity:0}, 0);
+            box.prepend(line);
+            //box.animate({scrollTop:0}, 1000, 'swing', function(){
+                $(".featurette:first").animate({opacity:1}, 1000);
+                //WIDGET.remove_bottom();
+                //});
+        };
+
+
+        !function ($) {
+            $(function(){
+                // carousel demo
+                //$('#myCarousel').carousel()
+                $.ev.loop('/poll/' + <%= $uid %> + '?session=' + Math.random(), {
+                    tweet : function(ev) {
+                        if(! ev.tweet.user || ! ev.tweet.text) return;
+                        console.log(ev.tweet);
+                        WIDGET.add_tweet(ev.tweet);
+                    },
+                    message : function(ev) {
+                        alert('しにました');
+                    }
+                });
+            })
+        }(window.jQuery)
     </script>
     <script src="static/assets/js/holder/holder.js"></script>
     <script type="text/javascript" src="static/jquery.ev.js"></script>
 
-  </body>
+</body>
 </html>
