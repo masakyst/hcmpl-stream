@@ -167,7 +167,7 @@
 
     /* Thin out the marketing headings */
     .featurette-heading {
-      font-size: 40px;
+      font-size: 20px;
       font-weight: 300;
       line-height: 1;
       letter-spacing: -1px;
@@ -283,6 +283,14 @@
         background-size: 300px;
     }
 
+    .thumbnails {
+        float: none;
+    }
+
+    img {
+        border: medium #ffffff solid;
+    };
+
 
 
     </style>
@@ -314,7 +322,10 @@
       </footer>
     </div><!-- /.container -->
 
-
+<!--
+<div class="thumbnails"><img src="http://t.co/4KZRKFs2BA" /></div>
+<div class="thumbnails"><img src="http://t.co/0niiSLIsVX" /></div>
+-->
 
     <!-- Le javascript
     ================================================== -->
@@ -336,8 +347,23 @@
         var WIDGET = { VERSION: '0.01', view_tweets:5 };
         WIDGET.add_tweet = function(tweet) {
             console.log(tweet);
+            console.log(tweet.text);
+            var inline_link = tweet.text.match(/(http:\/\/[\x21-\x7e]+)/gi); //array
+            tweet.text = tweet.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "");
+            if (inline_link && inline_link.length == 1) {
+                inline_link = inline_link[0].replace(/(http:\/\/[\x21-\x7e]+)/gi, "<div class='thumbnails'><img src='$1' /></div>");
+            }
+            console.log(inline_link);
+            tweet.text += inline_link;
+            /*
+            var inline_link = tweet.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "<div class='thumbnails'><img src='$1' /></div>");
+            tweet.text = tweet.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "");
+            tweet.text += inline_link;
+            */
+            console.log(tweet.text);
+
             var container = $("#container");
-            var box = $("#box");
+            //var box = $("#box");
             //var line = $('<hr class="featurette-divider">'
             var line = $('<div class="featurette">'
                 + '<img class="featurette-image pull-left" src="' + tweet.user.profile_image_url + '" width="100">'
@@ -345,8 +371,16 @@
                 + '<p class="lead">' + tweet.text + '</p>'
                 + '</div>');
             line.animate({opacity:0}, 0);
-            box.prepend(line);
+            //box.prepend(line);
             container.prepend(line);
+
+            /*
+            $(".thumbnails:first img").MyThumbnail({
+                  thumbWidth:  500,
+                  thumbHeight: 100
+            });
+            */
+
             //$(".featurette:first").animate({opacity:1}, 1000);
             $(".featurette:first").animate({opacity:1}, 1000, 'swing', function(){
                 WIDGET.remove_lasttweet();
@@ -365,7 +399,7 @@
 
         !function ($) {
             $(function(){
-                $.ev.loop('/poll/' + <%= $uid %> + '?session=' + Math.random(), {
+               $.ev.loop('/poll/' + <%= $uid %> + '?session=' + Math.random(), {
                     tweet : function(ev) {
                         if(! ev.tweet.user || ! ev.tweet.text) return;
                         console.log(ev.tweet);
@@ -380,6 +414,7 @@
     </script>
     <script src="static/assets/js/holder/holder.js"></script>
     <script type="text/javascript" src="static/jquery.ev.js"></script>
+    <script type="text/javascript" src="static/jquery.MyThumbnail.js"></script>
 
 </body>
 </html>
