@@ -149,11 +149,6 @@
       </footer>
     </div><!-- /.container -->
 
-<!--
-<div class="thumbnails"><img src="http://t.co/4KZRKFs2BA" /></div>
-<div class="thumbnails"><img src="http://t.co/0niiSLIsVX" /></div>
--->
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -161,11 +156,11 @@
     <script>
         var WIDGET = { VERSION: '0.01', view_tweets:5 };
         WIDGET.add_tweet = function(tweet) {
-            console.log(tweet);
+            //console.log(tweet);
             var link_text = '<div class="thumbnails">';
-            var inline_links = tweet.text.match(/(http:\/\/[\x21-\x7e]+)/gi); //array
+            var inline_links = tweet.text.match(/(http:\/\/[\x21-\x7e]+)/gi);
             tweet.text = tweet.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "");
-            if (inline_links) { //is array
+            if (inline_links) {
                 for (var i = 0; i < inline_links.length; i++) {
                     link_text += inline_links[i].replace(/(http:\/\/[\x21-\x7e]+)/gi, "<img src='$1' />");
                 }
