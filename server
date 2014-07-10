@@ -7,7 +7,7 @@ USER=parumon
 
 case $1 in
         start)
-                su $USER -c "carton exec -- start_server --port=80 --interval=5 --pid-file=$APPDIR/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &"
+                su $USER -c "cd $APPDIR; carton exec -- start_server --port=80 --interval=5 --pid-file=$APPDIR/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &"
                 ;;
         stop)
                 su $USER -c "kill -TERM `cat $APPDIR/hcmplstream.pid`"
