@@ -4,6 +4,8 @@ use Moo;
 
 extends 'Tatsumaki::Handler';
 
+use Data::Dumper;
+
 sub get {
     my $self = shift;
     my ( $uid ) = @_;
