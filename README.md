@@ -28,7 +28,7 @@ cartonは入ってますか？
 
 依存モジュールをインストールします。
 
-    $ carton install
+    $ carton install (--deployment
 
 
 ### 設定ファイルを用意
