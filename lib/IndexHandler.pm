@@ -1,4 +1,4 @@
-package HtmlHandler;
+package IndexHandler;
 
 use Moo;
 
