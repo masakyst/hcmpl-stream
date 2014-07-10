@@ -3,13 +3,12 @@ use warnings;
 use utf8;
 use Plack::Builder;
 use Tatsumaki::Application;
-use HtmlHandler;
+use IndexHandler;
 use TweetHandler;
-use TweetMockHandler;
 use YAML;
 
 my $app = Tatsumaki::Application->new([
-    qr'/(\d+)'      => 'HtmlHandler',
+    qr'/(\d+)'      => 'IndexHandler',
     qr'/poll/(\d+)' => 'TweetHandler',
 ]);
 
