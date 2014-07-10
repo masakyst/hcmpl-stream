@@ -1,16 +1,16 @@
 #!/bin/bash
 
-export PATH=/home/ec2-user/perl5/perlbrew/perls/perl-5.16/bin:$PATH
+export PATH=/home/parumon/perl5/perlbrew/perls/perl-5.18/bin:$PATH
 
 case $1 in
         start)
-                carton exec -- start_server --port=5000 --interval=5 --pid-file=/var/www/apps/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &
+                carton exec -- start_server --port=80 --interval=5 --pid-file=/home/parumon/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &
                 ;;
         stop)
-                kill -TERM `cat /var/www/apps/hcmpl-stream/hcmplstream.pid`
+                kill -TERM `cat /home/parumon/hcmpl-stream/hcmplstream.pid`
                 ;;
         restart)
-                kill -HUP `cat /var/www/apps/hcmpl-stream/hcmplstream.pid`
+                kill -HUP `cat /home/parumon/hcmpl-stream/hcmplstream.pid`
                 ;;
         *)
                 echo "usage: ./server {start|stop|restart}"
