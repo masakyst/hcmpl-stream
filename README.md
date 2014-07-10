@@ -20,38 +20,39 @@ You can also copy the standalone executable to whatever location you'd like.
 
 cartonは入ってますか？
 
-$ carton -v
+    $ carton -v
 
 入っていない場合はインストールします。
 
-cpanm Carton
+    $ cpanm Carton
 
 依存モジュールをインストールします。
 
-$ carton install
+    $ carton install
 
 
 ### 設定ファイルを用意
 
-$ cp config.yml.default config.yml
+    $ cp config.yml.default config.yml
 
 して、中身を埋めます。
 
-cs_key: 'APIキー'
-
-cs_secret: 'APIシークレットキー'
-
-ac_token: 'アクセストークン'
-
-ac_secret: 'アクセストークンシークレット'
-
-track: '拾いたいハッシュタグ'
-
+    cs_key: 'APIキー'
+    cs_secret: 'APIシークレットキー'
+    ac_token: 'アクセストークン'
+    ac_secret: 'アクセストークンシークレット'
+    track: '拾いたいハッシュタグ'
 
 
 ### サーバを起動します。
 
-carton exec plackup -Ilib
+    $ carton exec plackup -Ilib
+
+ブラウザでport 5000番でアクセスしてみてください
+
+ちなみに、ツイートをストレージに保存していないので、
+サーバ起動時点以降からの投稿が表示されていきます。
+
 
 
 
