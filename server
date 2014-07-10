@@ -2,15 +2,18 @@
 
 export PATH=/home/parumon/perl5/perlbrew/perls/perl-5.18/bin:$PATH
 
+APPDIR=/home/parumon/hcmpl-stream
+USER=parumon
+
 case $1 in
         start)
-                carton exec -- start_server --port=80 --interval=5 --pid-file=/home/parumon/hcmpl-stream/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &
+                su $USER -c "carton exec -- start_server --port=80 --interval=5 --pid-file=$APPDIR/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &"
                 ;;
         stop)
-                kill -TERM `cat /home/parumon/hcmpl-stream/hcmplstream.pid`
+                su $USER -c "kill -TERM `cat $APPDIR/hcmplstream.pid`"
                 ;;
         restart)
-                kill -HUP `cat /home/parumon/hcmpl-stream/hcmplstream.pid`
+                su $USER -c "kill -HUP `cat $APPDIR/hcmplstream.pid`"
                 ;;
         *)
                 echo "usage: ./server {start|stop|restart}"
