@@ -6,7 +6,7 @@ APPDIR=/home/parumon/hcmpl-stream
 
 case $1 in
         start)
-                plackup -s Twiggy -E production --port 80 >/dev/null 2>&1 &
+                plackup -s Twiggy -E production --port 80 >stderr.log 2>&1 &
                 ;;
         stop)
                 pkill -TERM -f plackup
