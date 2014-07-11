@@ -6,16 +6,13 @@ APPDIR=/home/parumon/hcmpl-stream
 
 case $1 in
         start)
-                carton exec -- start_server --port=80 --interval=5 --pid-file=$APPDIR/hcmplstream.pid -- plackup -Ilib -s Twiggy -E production >/dev/null 2>&1 &
+                carton exec -- plackup -Ilib -s Twiggy -E production --port 80 >/dev/null 2>&1 &
                 ;;
         stop)
-                kill -TERM `cat $APPDIR/hcmplstream.pid`
-                ;;
-        restart)
-                kill -HUP `cat $APPDIR/hcmplstream.pid`
+                pkill -TERM -f plackup
                 ;;
         *)
-                echo "usage: ./server {start|stop|restart}"
+                echo "usage: ./server {start|stop}"
                 ;;
 esac
 exit 0
