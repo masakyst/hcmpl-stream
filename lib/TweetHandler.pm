@@ -38,7 +38,7 @@ sub create_stream {
         },  
         on_tweet => sub {
             my $tweet = shift;
-            print Dumper($tweet);
+            #print Dumper($tweet);
             $mq->publish( { type => 'tweet', tweet => $tweet, } );
         },
         on_error => sub {

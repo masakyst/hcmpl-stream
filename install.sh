@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cpanm Plack --notest
 cpanm -L extlib git://github.com/miyagawa/AnyEvent-Twitter-Stream.git
 cpanm -L extlib JSON::XS --notest
 cpanm -L extlib YAML --notest
