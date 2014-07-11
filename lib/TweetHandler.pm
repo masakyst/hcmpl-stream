@@ -1,5 +1,6 @@
 package TweetHandler;
 
+use JSON::XS;
 use Moo;
 use AnyEvent::Twitter::Stream;
 use Tatsumaki::MessageQueue;
@@ -31,12 +32,13 @@ sub create_stream {
         token_secret    => $ac_secret,
         method          => 'filter',
         track           => $track,
+        #no_decode_json  => 1,
         on_keepalive => sub {
             warn "ping\n";
         },  
         on_tweet => sub {
             my $tweet = shift;
-            # print Dumper($tweet);
+            print Dumper($tweet);
             $mq->publish( { type => 'tweet', tweet => $tweet, } );
         },
         on_error => sub {
@@ -49,6 +51,11 @@ sub create_stream {
             $mq->publish( { type => 'message', text => 'disconnected', } );
             delete $streams{ $uid };
         },
+        on_json => sub {
+            my $json = shift;
+            $mq->publish( { type => 'tweet', tweet => $json, } );
+        },
+ 
     );
 }
 

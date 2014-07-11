@@ -1,3 +1,4 @@
+requires 'JSON::XS';
 requires 'YAML';
 requires 'Twiggy';
 requires 'Tatsumaki';
